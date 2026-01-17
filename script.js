@@ -126,33 +126,42 @@ window.addEventListener('scroll', () => {
 // ================================
 
 (function initCarousel() {
-    const carousel = document.querySelector('.screenshots-carousel');
+    var carousel = document.querySelector('.screenshots-carousel');
     if (!carousel) return;
 
-    const cards = Array.from(carousel.querySelectorAll('.screenshot-card'));
+    var cards = [];
+    var cardElements = carousel.querySelectorAll('.screenshot-card');
+    for (var i = 0; i < cardElements.length; i++) {
+        cards.push(cardElements[i]);
+    }
     if (cards.length === 0) return;
 
-    // Position order: hidden-left -> left -> center -> right -> hidden-right
-    const positions = ['hidden-left', 'left', 'center', 'right', 'hidden-right', 'hidden-right'];
+    // Position classes
+    var positions = ['pos-hidden-left', 'pos-left', 'pos-center', 'pos-right', 'pos-hidden-right', 'pos-hidden-right'];
+    var allPositions = ['pos-hidden-left', 'pos-left', 'pos-center', 'pos-right', 'pos-hidden-right'];
 
-    let currentIndex = 0;
-    let isAnimating = false;
+    var currentIndex = 0;
+    var isAnimating = false;
+
+    function removeAllPositions(card) {
+        for (var i = 0; i < allPositions.length; i++) {
+            card.classList.remove(allPositions[i]);
+        }
+    }
 
     function rotateCarousel() {
         if (isAnimating) return;
         isAnimating = true;
 
-        // Move to next index
         currentIndex = (currentIndex + 1) % cards.length;
 
-        // Update each card's position
-        cards.forEach(function(card, index) {
-            const posIndex = (index - currentIndex + cards.length) % cards.length;
-            const position = positions[posIndex] || 'hidden-right';
-            card.setAttribute('data-position', position);
-        });
+        for (var i = 0; i < cards.length; i++) {
+            var posIndex = (i - currentIndex + cards.length) % cards.length;
+            var position = positions[posIndex] || 'pos-hidden-right';
+            removeAllPositions(cards[i]);
+            cards[i].classList.add(position);
+        }
 
-        // Reset animation flag after transition completes
         setTimeout(function() {
             isAnimating = false;
         }, 850);

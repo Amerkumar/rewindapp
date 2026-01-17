@@ -339,39 +339,28 @@ nav {
 }
 
 .screenshots-carousel {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: block;
     max-width: 1000px;
     margin: 0 auto;
     position: relative;
     z-index: 1;
     height: 500px;
-    -webkit-perspective: 1000px;
-    perspective: 1000px;
 }
 
 .screenshot-card {
     position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -120px;
+    margin-top: -260px;
     border-radius: 24px;
     overflow: hidden;
     box-shadow: 0 30px 100px rgba(0, 0, 0, 0.6);
-    background: var(--bg-tertiary);
-    border: 1px solid var(--border);
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     width: 240px;
-    /* Explicit transition properties for better browser support */
-    -webkit-transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                        opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                        box-shadow 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    /* Performance optimization for mobile */
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    will-change: transform, opacity;
+    -webkit-transition: -webkit-transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .screenshot-card img {
@@ -381,42 +370,42 @@ nav {
 }
 
 /* Center position - main focus */
-.screenshot-card[data-position="center"] {
-    -webkit-transform: translateX(0) scale(1) rotate(0deg);
-    transform: translateX(0) scale(1) rotate(0deg);
+.screenshot-card.pos-center {
+    -webkit-transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
     z-index: 3;
     opacity: 1;
     box-shadow: 0 40px 120px rgba(168, 85, 247, 0.3);
 }
 
 /* Left position */
-.screenshot-card[data-position="left"] {
-    -webkit-transform: translateX(-280px) scale(0.85) rotate(-8deg);
-    transform: translateX(-280px) scale(0.85) rotate(-8deg);
+.screenshot-card.pos-left {
+    -webkit-transform: translate3d(-280px, 0, 0) scale(0.85) rotate(-8deg);
+    transform: translate3d(-280px, 0, 0) scale(0.85) rotate(-8deg);
     z-index: 2;
     opacity: 0.7;
 }
 
 /* Right position */
-.screenshot-card[data-position="right"] {
-    -webkit-transform: translateX(280px) scale(0.85) rotate(8deg);
-    transform: translateX(280px) scale(0.85) rotate(8deg);
+.screenshot-card.pos-right {
+    -webkit-transform: translate3d(280px, 0, 0) scale(0.85) rotate(8deg);
+    transform: translate3d(280px, 0, 0) scale(0.85) rotate(8deg);
     z-index: 2;
     opacity: 0.7;
 }
 
 /* Hidden positions for incoming/outgoing */
-.screenshot-card[data-position="hidden-left"] {
-    -webkit-transform: translateX(-500px) scale(0.7) rotate(-15deg);
-    transform: translateX(-500px) scale(0.7) rotate(-15deg);
+.screenshot-card.pos-hidden-left {
+    -webkit-transform: translate3d(-500px, 0, 0) scale(0.7) rotate(-15deg);
+    transform: translate3d(-500px, 0, 0) scale(0.7) rotate(-15deg);
     z-index: 1;
     opacity: 0;
     pointer-events: none;
 }
 
-.screenshot-card[data-position="hidden-right"] {
-    -webkit-transform: translateX(500px) scale(0.7) rotate(15deg);
-    transform: translateX(500px) scale(0.7) rotate(15deg);
+.screenshot-card.pos-hidden-right {
+    -webkit-transform: translate3d(500px, 0, 0) scale(0.7) rotate(15deg);
+    transform: translate3d(500px, 0, 0) scale(0.7) rotate(15deg);
     z-index: 1;
     opacity: 0;
     pointer-events: none;
@@ -847,26 +836,28 @@ nav {
 
     .screenshot-card {
         width: 200px;
+        margin-left: -100px;
+        margin-top: -220px;
     }
 
-    .screenshot-card[data-position="left"] {
-        -webkit-transform: translateX(-220px) scale(0.85) rotate(-8deg);
-        transform: translateX(-220px) scale(0.85) rotate(-8deg);
+    .screenshot-card.pos-left {
+        -webkit-transform: translate3d(-220px, 0, 0) scale(0.85) rotate(-8deg);
+        transform: translate3d(-220px, 0, 0) scale(0.85) rotate(-8deg);
     }
 
-    .screenshot-card[data-position="right"] {
-        -webkit-transform: translateX(220px) scale(0.85) rotate(8deg);
-        transform: translateX(220px) scale(0.85) rotate(8deg);
+    .screenshot-card.pos-right {
+        -webkit-transform: translate3d(220px, 0, 0) scale(0.85) rotate(8deg);
+        transform: translate3d(220px, 0, 0) scale(0.85) rotate(8deg);
     }
 
-    .screenshot-card[data-position="hidden-left"] {
-        -webkit-transform: translateX(-400px) scale(0.7) rotate(-12deg);
-        transform: translateX(-400px) scale(0.7) rotate(-12deg);
+    .screenshot-card.pos-hidden-left {
+        -webkit-transform: translate3d(-400px, 0, 0) scale(0.7) rotate(-12deg);
+        transform: translate3d(-400px, 0, 0) scale(0.7) rotate(-12deg);
     }
 
-    .screenshot-card[data-position="hidden-right"] {
-        -webkit-transform: translateX(400px) scale(0.7) rotate(12deg);
-        transform: translateX(400px) scale(0.7) rotate(12deg);
+    .screenshot-card.pos-hidden-right {
+        -webkit-transform: translate3d(400px, 0, 0) scale(0.7) rotate(12deg);
+        transform: translate3d(400px, 0, 0) scale(0.7) rotate(12deg);
     }
 }
 
@@ -946,31 +937,33 @@ nav {
 
     .screenshot-card {
         width: 140px;
+        margin-left: -70px;
+        margin-top: -150px;
     }
 
-    .screenshot-card[data-position="center"] {
-        -webkit-transform: translateX(0) scale(1) rotate(0deg);
-        transform: translateX(0) scale(1) rotate(0deg);
+    .screenshot-card.pos-center {
+        -webkit-transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
     }
 
-    .screenshot-card[data-position="left"] {
-        -webkit-transform: translateX(-120px) scale(0.8) rotate(-6deg);
-        transform: translateX(-120px) scale(0.8) rotate(-6deg);
+    .screenshot-card.pos-left {
+        -webkit-transform: translate3d(-100px, 0, 0) scale(0.8) rotate(-6deg);
+        transform: translate3d(-100px, 0, 0) scale(0.8) rotate(-6deg);
     }
 
-    .screenshot-card[data-position="right"] {
-        -webkit-transform: translateX(120px) scale(0.8) rotate(6deg);
-        transform: translateX(120px) scale(0.8) rotate(6deg);
+    .screenshot-card.pos-right {
+        -webkit-transform: translate3d(100px, 0, 0) scale(0.8) rotate(6deg);
+        transform: translate3d(100px, 0, 0) scale(0.8) rotate(6deg);
     }
 
-    .screenshot-card[data-position="hidden-left"] {
-        -webkit-transform: translateX(-250px) scale(0.7) rotate(-10deg);
-        transform: translateX(-250px) scale(0.7) rotate(-10deg);
+    .screenshot-card.pos-hidden-left {
+        -webkit-transform: translate3d(-200px, 0, 0) scale(0.7) rotate(-10deg);
+        transform: translate3d(-200px, 0, 0) scale(0.7) rotate(-10deg);
     }
 
-    .screenshot-card[data-position="hidden-right"] {
-        -webkit-transform: translateX(250px) scale(0.7) rotate(10deg);
-        transform: translateX(250px) scale(0.7) rotate(10deg);
+    .screenshot-card.pos-hidden-right {
+        -webkit-transform: translate3d(200px, 0, 0) scale(0.7) rotate(10deg);
+        transform: translate3d(200px, 0, 0) scale(0.7) rotate(10deg);
     }
 
     .step {
