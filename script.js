@@ -125,26 +125,41 @@ window.addEventListener('scroll', () => {
 // SCREENSHOTS CAROUSEL
 // ================================
 
-const carousel = document.querySelector('.screenshots-carousel');
-if (carousel) {
+(function initCarousel() {
+    const carousel = document.querySelector('.screenshots-carousel');
+    if (!carousel) return;
+
     const cards = Array.from(carousel.querySelectorAll('.screenshot-card'));
+    if (cards.length === 0) return;
+
+    // Position order: hidden-left -> left -> center -> right -> hidden-right
     const positions = ['hidden-left', 'left', 'center', 'right', 'hidden-right', 'hidden-right'];
 
-    // Track current rotation state
     let currentIndex = 0;
+    let isAnimating = false;
 
     function rotateCarousel() {
-        // Shift positions to create rotation effect (moving right to left)
+        if (isAnimating) return;
+        isAnimating = true;
+
+        // Move to next index
         currentIndex = (currentIndex + 1) % cards.length;
 
-        cards.forEach((card, index) => {
-            // Calculate position index based on current rotation
+        // Update each card's position
+        cards.forEach(function(card, index) {
             const posIndex = (index - currentIndex + cards.length) % cards.length;
             const position = positions[posIndex] || 'hidden-right';
             card.setAttribute('data-position', position);
         });
+
+        // Reset animation flag after transition completes
+        setTimeout(function() {
+            isAnimating = false;
+        }, 850);
     }
 
-    // Auto-rotate every 3 seconds
-    setInterval(rotateCarousel, 3000);
-}
+    // Start auto-rotation after a short delay
+    setTimeout(function() {
+        setInterval(rotateCarousel, 3000);
+    }, 1000);
+})();

@@ -347,6 +347,8 @@ nav {
     position: relative;
     z-index: 1;
     height: 500px;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
 }
 
 .screenshot-card {
@@ -356,8 +358,20 @@ nav {
     box-shadow: 0 30px 100px rgba(0, 0, 0, 0.6);
     background: var(--bg-tertiary);
     border: 1px solid var(--border);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     width: 240px;
+    /* Explicit transition properties for better browser support */
+    -webkit-transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                        box-shadow 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Performance optimization for mobile */
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
 }
 
 .screenshot-card img {
@@ -368,6 +382,7 @@ nav {
 
 /* Center position - main focus */
 .screenshot-card[data-position="center"] {
+    -webkit-transform: translateX(0) scale(1) rotate(0deg);
     transform: translateX(0) scale(1) rotate(0deg);
     z-index: 3;
     opacity: 1;
@@ -376,6 +391,7 @@ nav {
 
 /* Left position */
 .screenshot-card[data-position="left"] {
+    -webkit-transform: translateX(-280px) scale(0.85) rotate(-8deg);
     transform: translateX(-280px) scale(0.85) rotate(-8deg);
     z-index: 2;
     opacity: 0.7;
@@ -383,6 +399,7 @@ nav {
 
 /* Right position */
 .screenshot-card[data-position="right"] {
+    -webkit-transform: translateX(280px) scale(0.85) rotate(8deg);
     transform: translateX(280px) scale(0.85) rotate(8deg);
     z-index: 2;
     opacity: 0.7;
@@ -390,43 +407,19 @@ nav {
 
 /* Hidden positions for incoming/outgoing */
 .screenshot-card[data-position="hidden-left"] {
+    -webkit-transform: translateX(-500px) scale(0.7) rotate(-15deg);
     transform: translateX(-500px) scale(0.7) rotate(-15deg);
     z-index: 1;
     opacity: 0;
+    pointer-events: none;
 }
 
 .screenshot-card[data-position="hidden-right"] {
+    -webkit-transform: translateX(500px) scale(0.7) rotate(15deg);
     transform: translateX(500px) scale(0.7) rotate(15deg);
     z-index: 1;
     opacity: 0;
-}
-
-/* Floating animation for center card */
-.screenshot-card[data-position="center"] {
-    animation: float-center 4s ease-in-out infinite;
-}
-
-.screenshot-card[data-position="left"] {
-    animation: float-left 5s ease-in-out infinite;
-}
-
-.screenshot-card[data-position="right"] {
-    animation: float-right 5s ease-in-out infinite;
-}
-
-@keyframes float-center {
-    0%, 100% { transform: translateX(0) scale(1) rotate(0deg) translateY(0); }
-    50% { transform: translateX(0) scale(1) rotate(0deg) translateY(-15px); }
-}
-
-@keyframes float-left {
-    0%, 100% { transform: translateX(-280px) scale(0.85) rotate(-8deg) translateY(0); }
-    50% { transform: translateX(-280px) scale(0.85) rotate(-8deg) translateY(-10px); }
-}
-
-@keyframes float-right {
-    0%, 100% { transform: translateX(280px) scale(0.85) rotate(8deg) translateY(0); }
-    50% { transform: translateX(280px) scale(0.85) rotate(8deg) translateY(-10px); }
+    pointer-events: none;
 }
 
 /* ================================
@@ -857,21 +850,23 @@ nav {
     }
 
     .screenshot-card[data-position="left"] {
+        -webkit-transform: translateX(-220px) scale(0.85) rotate(-8deg);
         transform: translateX(-220px) scale(0.85) rotate(-8deg);
     }
 
     .screenshot-card[data-position="right"] {
+        -webkit-transform: translateX(220px) scale(0.85) rotate(8deg);
         transform: translateX(220px) scale(0.85) rotate(8deg);
     }
 
-    @keyframes float-left {
-        0%, 100% { transform: translateX(-220px) scale(0.85) rotate(-8deg) translateY(0); }
-        50% { transform: translateX(-220px) scale(0.85) rotate(-8deg) translateY(-10px); }
+    .screenshot-card[data-position="hidden-left"] {
+        -webkit-transform: translateX(-400px) scale(0.7) rotate(-12deg);
+        transform: translateX(-400px) scale(0.7) rotate(-12deg);
     }
 
-    @keyframes float-right {
-        0%, 100% { transform: translateX(220px) scale(0.85) rotate(8deg) translateY(0); }
-        50% { transform: translateX(220px) scale(0.85) rotate(8deg) translateY(-10px); }
+    .screenshot-card[data-position="hidden-right"] {
+        -webkit-transform: translateX(400px) scale(0.7) rotate(12deg);
+        transform: translateX(400px) scale(0.7) rotate(12deg);
     }
 }
 
@@ -946,37 +941,36 @@ nav {
     }
 
     .screenshots-carousel {
-        height: 350px;
+        height: 320px;
     }
 
     .screenshot-card {
-        width: 160px;
+        width: 140px;
+    }
+
+    .screenshot-card[data-position="center"] {
+        -webkit-transform: translateX(0) scale(1) rotate(0deg);
+        transform: translateX(0) scale(1) rotate(0deg);
     }
 
     .screenshot-card[data-position="left"] {
-        transform: translateX(-150px) scale(0.8) rotate(-6deg);
+        -webkit-transform: translateX(-120px) scale(0.8) rotate(-6deg);
+        transform: translateX(-120px) scale(0.8) rotate(-6deg);
     }
 
     .screenshot-card[data-position="right"] {
-        transform: translateX(150px) scale(0.8) rotate(6deg);
+        -webkit-transform: translateX(120px) scale(0.8) rotate(6deg);
+        transform: translateX(120px) scale(0.8) rotate(6deg);
     }
 
     .screenshot-card[data-position="hidden-left"] {
-        transform: translateX(-300px) scale(0.7) rotate(-10deg);
+        -webkit-transform: translateX(-250px) scale(0.7) rotate(-10deg);
+        transform: translateX(-250px) scale(0.7) rotate(-10deg);
     }
 
     .screenshot-card[data-position="hidden-right"] {
-        transform: translateX(300px) scale(0.7) rotate(10deg);
-    }
-
-    @keyframes float-left {
-        0%, 100% { transform: translateX(-150px) scale(0.8) rotate(-6deg) translateY(0); }
-        50% { transform: translateX(-150px) scale(0.8) rotate(-6deg) translateY(-8px); }
-    }
-
-    @keyframes float-right {
-        0%, 100% { transform: translateX(150px) scale(0.8) rotate(6deg) translateY(0); }
-        50% { transform: translateX(150px) scale(0.8) rotate(6deg) translateY(-8px); }
+        -webkit-transform: translateX(250px) scale(0.7) rotate(10deg);
+        transform: translateX(250px) scale(0.7) rotate(10deg);
     }
 
     .step {
