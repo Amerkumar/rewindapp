@@ -340,20 +340,37 @@ nav {
 
 .screenshots-wrapper {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
-    max-width: 1000px;
+    gap: 2rem;
+    max-width: 1200px;
     margin: 0 auto;
     position: relative;
     z-index: 1;
 }
 
+.screenshots-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.screenshots-row-bottom {
+    margin-top: -1rem;
+}
+
 .screenshot-card {
-    border-radius: 20px;
+    border-radius: 24px;
     overflow: hidden;
     box-shadow: 0 30px 100px rgba(0, 0, 0, 0.6);
     background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.screenshot-card:hover {
+    box-shadow: 0 40px 120px rgba(168, 85, 247, 0.2);
 }
 
 .screenshot-card img {
@@ -362,55 +379,72 @@ nav {
     height: auto;
 }
 
-.screenshot-main {
-    width: 260px;
+/* Individual screenshot styles with unique animations */
+.screenshot-1 {
+    width: 180px;
+    transform: rotate(-4deg);
+    animation: float-1 6s ease-in-out infinite;
+}
+
+.screenshot-2 {
+    width: 220px;
     z-index: 2;
-    border: 1px solid var(--border);
-    animation: float 6s ease-in-out infinite;
+    animation: float-2 5s ease-in-out infinite;
 }
 
-.screenshot-left,
-.screenshot-right {
+.screenshot-3 {
+    width: 180px;
+    transform: rotate(4deg);
+    animation: float-3 7s ease-in-out infinite;
+}
+
+.screenshot-4 {
+    width: 160px;
+    transform: rotate(3deg);
+    animation: float-4 8s ease-in-out infinite;
+}
+
+.screenshot-5 {
     width: 200px;
-    opacity: 0.6;
+    z-index: 2;
+    animation: float-5 6.5s ease-in-out infinite;
 }
 
-.screenshot-left {
-    transform: scale(0.9) rotate(-6deg) translateX(30px);
-    animation: float-left 7s ease-in-out infinite;
+.screenshot-6 {
+    width: 160px;
+    transform: rotate(-3deg);
+    animation: float-6 7.5s ease-in-out infinite;
 }
 
-.screenshot-right {
-    transform: scale(0.9) rotate(6deg) translateX(-30px);
-    animation: float-right 8s ease-in-out infinite;
+/* Floating animations for each screenshot */
+@keyframes float-1 {
+    0%, 100% { transform: rotate(-4deg) translateY(0); }
+    50% { transform: rotate(-4deg) translateY(-18px); }
 }
 
-/* Floating animations for screenshots */
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-20px);
-    }
+@keyframes float-2 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-22px); }
 }
 
-@keyframes float-left {
-    0%, 100% {
-        transform: scale(0.9) rotate(-6deg) translateX(30px) translateY(0);
-    }
-    50% {
-        transform: scale(0.9) rotate(-6deg) translateX(30px) translateY(-15px);
-    }
+@keyframes float-3 {
+    0%, 100% { transform: rotate(4deg) translateY(0); }
+    50% { transform: rotate(4deg) translateY(-15px); }
 }
 
-@keyframes float-right {
-    0%, 100% {
-        transform: scale(0.9) rotate(6deg) translateX(-30px) translateY(0);
-    }
-    50% {
-        transform: scale(0.9) rotate(6deg) translateX(-30px) translateY(-25px);
-    }
+@keyframes float-4 {
+    0%, 100% { transform: rotate(3deg) translateY(0); }
+    50% { transform: rotate(3deg) translateY(-20px); }
+}
+
+@keyframes float-5 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-16px); }
+}
+
+@keyframes float-6 {
+    0%, 100% { transform: rotate(-3deg) translateY(0); }
+    50% { transform: rotate(-3deg) translateY(-24px); }
 }
 
 /* ================================
@@ -832,18 +866,26 @@ nav {
         margin: 0 auto;
     }
 
-    .screenshots-wrapper {
-        flex-direction: column;
-        align-items: center;
+    .screenshots-row {
+        gap: 1rem;
     }
 
-    .screenshot-left,
-    .screenshot-right {
-        display: none;
+    .screenshot-1,
+    .screenshot-3 {
+        width: 140px;
     }
 
-    .screenshot-main {
-        width: 260px;
+    .screenshot-2 {
+        width: 180px;
+    }
+
+    .screenshot-4,
+    .screenshot-6 {
+        width: 120px;
+    }
+
+    .screenshot-5 {
+        width: 160px;
     }
 }
 
@@ -917,8 +959,26 @@ nav {
         padding: 1rem;
     }
 
-    .screenshot-main {
-        width: 220px;
+    .screenshots-row {
+        gap: 0.5rem;
+    }
+
+    .screenshot-1,
+    .screenshot-3 {
+        width: 100px;
+    }
+
+    .screenshot-2 {
+        width: 130px;
+    }
+
+    .screenshot-4,
+    .screenshot-6 {
+        width: 90px;
+    }
+
+    .screenshot-5 {
+        width: 120px;
     }
 
     .step {
